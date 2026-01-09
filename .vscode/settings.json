@@ -1,0 +1,5 @@
+{
+    "yaml.schemas": {
+        "kubernetes://schema/v1@pod": "file:///home/mrask/kubernetes-in-one-shot/testing/test.yml"
+    }
+}
