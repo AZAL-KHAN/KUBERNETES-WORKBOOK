@@ -1,3 +1,4 @@
 testing/
-django-notes-app/
+#django-notes-app/
 .vscode
+Django-notes-app/
