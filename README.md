@@ -240,22 +240,3 @@ This README is a comprehensive guide for "Kubernetes in One Shot." It contains c
    Display detailed information about a pod.
 3. `kubectl exec -it pod-name -n namespace -- bash`  
    Access a running container.
-
----
-
-## **Projects**
-
-### Resources for Projects:
-
-1. **Kubestarter:** [GitHub Repository](https://github.com/LondheShubham153/kubestarter)  
-   A comprehensive starter template for Kubernetes projects.
-
-2. **CI/CD Integration:** [Wanderlust Mega Project](https://github.com/LondheShubham153/Wanderlust-Mega-Project)  
-   Learn Kubernetes CI/CD with Jenkins and ArgoCD.
-
-3. **Microservices:** [Full Stack ChatApp](https://github.com/LondheShubham153/full-stack_chatApp)  
-   Build and deploy a full-stack chat application.
-
-4. **Monitoring:** [K8s Voting App](https://github.com/LondheShubham153/k8s-kind-voting-app)  
-   Implement monitoring with Prometheus and Grafana for a voting app.
-
