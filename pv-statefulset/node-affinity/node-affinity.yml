@@ -1,0 +1,85 @@
+# Node Affinity Concept
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongodb
+spec:
+  serviceName: mongodb            # must match headless service
+  replicas: 1                     # correct for MongoDB
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - mycluster-worker   # 👈 your kind worker node
+
+      containers:
+        - name: mongodb
+          image: mongo:6
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: mongo-data
+              mountPath: /data/db
+
+  volumeClaimTemplates:
+    - metadata:
+        name: mongo-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: host-storage
+        resources:
+          requests:
+            storage: 1Gi
+
+
+# Node Selector Concept
+# apiVersion: apps/v1
+# kind: StatefulSet
+# metadata:
+#   name: mongodb
+# spec:
+#   serviceName: mongodb              # must match headless service
+#   replicas: 1                       # correct for MongoDB
+#   selector:
+#     matchLabels:
+#       app: mongodb
+#   template:
+#     metadata:
+#       labels:
+#         app: mongodb
+#     spec:
+#       # 🔒 PIN MongoDB to a single node (IMPORTANT for kind + hostPath)
+#       nodeSelector:
+#         kubernetes.io/hostname: mycluster-worker
+
+#       containers:
+#         - name: mongodb
+#           image: mongo:6
+#           ports:
+#             - containerPort: 27017
+#           volumeMounts:
+#             - name: mongo-data
+#               mountPath: /data/db
+#   volumeClaimTemplates:
+#     - metadata:
+#         name: mongo-data
+#       spec:
+#         accessModes:
+#           - ReadWriteOnce
+#         storageClassName: host-storage
+#         resources:
+#           requests:
+#             storage: 1Gi

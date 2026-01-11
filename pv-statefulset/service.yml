@@ -1,0 +1,12 @@
+# Mongo Headless Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+spec:
+  clusterIP: None        # 👈 Headless service (REQUIRED)
+  selector:
+    app: mongodb
+  ports:
+    - port: 27017
+      targetPort: 27017
