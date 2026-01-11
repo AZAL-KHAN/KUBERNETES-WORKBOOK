@@ -1,45 +1,19 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: minute-backup
-  namespace: nginx
-
+  name: hello
 spec:
   schedule: "* * * * *"
   jobTemplate:
     spec:
       template:
-        metadata:
-          name: minute-backup
-          labels:
-            app: minute-backup
-
         spec:
           containers:
-          - name: backup-container
-            image: busybox
+          - name: hello
+            image: busybox:1.28
+            imagePullPolicy: IfNotPresent
             command:
-            - sh
+            - /bin/sh
             - -c
-            - >
-              echo "Backup Started" ;
-              mkdir -p /backups &&
-              mkdir -p /demo-data &&
-              cp -r /demo-data /backups &&
-              echo "Backup Completed" ;
-            volumeMounts:
-              - name: data-volume
-                mountPath: /demo-data
-              - name: backup-volume
-                mountPath: /backups
+            - date; echo Hello from the Kubernetes cluster
           restartPolicy: OnFailure
-          volumes:
-            - name: data-volume
-              hostPath:
-                path: /demo-data
-                type: DirectoryOrCreate
-            - name: backup-volume
-              hostPath:
-                path: /backups
-                type: DirectoryOrCreate
-
