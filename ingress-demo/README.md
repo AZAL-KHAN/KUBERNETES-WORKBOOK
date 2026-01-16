@@ -7,8 +7,9 @@ This guide shows how to install **NGINX Ingress Controller on a kind cluster** a
 
 ## Install NGINX Ingress Controller (kind)
 
-```bash
+```
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+```
 
 ---
 
@@ -25,3 +26,7 @@ kubectl get ingressclass
 
 Since kind does not provide an external LoadBalancer,
 use port-forwarding to access ingress services:
+
+```
+kubectl port-forward svc/ingress-nginx-controller -n ingress-nginx 8080:80
+```
